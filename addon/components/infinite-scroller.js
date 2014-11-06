@@ -11,6 +11,8 @@ var InfiniteScroller = Ember.Component.extend({
 
   classNames: ["infinite-scroller"],
 
+  hidden: computed.none('hasMoreContent', 'isFetching'),
+
   listenerDistance: 500,
   visibleContent: computed.defaultTo('contextController.content'),
   content: computed.defaultTo('contextController.content'),
