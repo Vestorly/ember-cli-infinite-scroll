@@ -1,7 +1,8 @@
 # Ember Infinite Scroller
 
-Ember Infinite Scroller is a component that sits at the bottom of a page of content. It will
-make a REST call to get more content when a user scrolls to the bottom.
+Ember Infinite Scroller is a component that sits at the bottom of a page of content. It calls
+`store.find` to get more content and pushes the content into a model when a user scrolls to
+the bottom.
 
 ## Installation
 
@@ -88,3 +89,16 @@ query: function() {
 }
 ```
 
+## Blueprint
+
+The blueprint template comes with some handy features, including a `yield` that is
+displayed when the infinite scroller is out of content.
+
+```
+{{infinite-scroller contextController=this}}
+  <span>No more content!</span>
+{{/infinite-scroller}}
+```
+
+It also includes a loading spnner When the scroller is fetching content, it displays a spinner.
+The default is an image, but you can customize the css to change the spinner.
