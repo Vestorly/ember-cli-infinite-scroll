@@ -13,7 +13,7 @@ the bottom.
 Drop the infinite scroller component into any template. There is one required param: `contextController`.
 In most cases it will be `this`.
 
-```
+```handlebars
 {{infinite-scroller contextController=this}}
 ```
 
@@ -21,8 +21,8 @@ Other parameters are optional.
 
 * `limit` default: 12
 
-```
-{{infinite-scroller  contextController=this limit=30}}
+```handlebars
+{{infinite-scroller contextController=this limit=30}}
 ```
 
 * `beginInfinite` default: `true`
@@ -30,13 +30,15 @@ Other parameters are optional.
 Use `beginInfinite` to start or stop manually. For example:
 
 Template:
-```
+
+```handlebars
 <button {{action 'toggleBeginInfinite'}}>Begin</button>
 {{infinite-scroller  contextController=this beginInfinite=beginInfinite}}
 ```
 
 Controller:
-```
+
+```javascript
 actions: {
   toggleBeginInfinite: function() {
     this.toggleProperty('beginInfinite')
@@ -49,7 +51,7 @@ actions: {
 The `content` can be customized if the content of the infinite scroller is not the model
 of the controller.
 
-```
+```handlebars
 {{infinite-scroller contextController=this content=otherModel}}
 ```
 
@@ -60,32 +62,34 @@ it can be overwritten.
 
 For example, if the content model type is `'note'` but the query should be for `'comment'`:
 
-```
+```handlebars
 {{infinite-scroller contextController=this modelName='comment'}}
 ```
 
 * `query` default:
-```
+
+```javascript
 {model: this.get('modelName'), params: {}, callback: null}
 ```
 
 The `query` has a required `modelName` and `params` and an optional `callback`.
 
-```
+```handlebars
 {{infinite-scroller contextController=this query=query}}
 ```
 
 Controller:
-```
+
+```javascript
 query: function() {
   var query = {
     model: 'post',
-    params: {published: true}
+    params: {published: true},
     callback: function(posts) {
       // do cool things with posts when they come back.
     }
-  }
-  return query
+  };
+  return query;
 }
 ```
 
@@ -94,7 +98,7 @@ query: function() {
 The blueprint template comes with some handy features, including a `yield` that is
 displayed when the infinite scroller is out of content.
 
-```
+```handlebars
 {{infinite-scroller contextController=this}}
   <span>No more content!</span>
 {{/infinite-scroller}}
