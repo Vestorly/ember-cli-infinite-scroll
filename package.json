@@ -1,6 +1,6 @@
 {
   "name": "ember-infinite-scroller",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "directories": {
     "doc": "doc",
     "test": "tests"
@@ -30,9 +30,6 @@
     "express": "^4.8.5",
     "glob": "^4.0.5"
   },
-  "keywords": [
-    "ember-addon","ember","ember-cli"
-  ],
   "ember-addon": {
     "configPath": "tests/dummy/config"
   }
