@@ -1,3 +1,7 @@
+{{#if beginInfinite}}
+  {{ember-ic-you crossedTheLine='getMoreContent'}}
+{{/if}}
+
 <div {{bind-attr class="hasMoreContent isFetching hidden"}}>
   <div class="icon-spinner animate-spinner"></div>
   {{yield}}

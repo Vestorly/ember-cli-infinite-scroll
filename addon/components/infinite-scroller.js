@@ -1,7 +1,7 @@
 import Ember from 'ember';
 var computed = Ember.computed;
 
-var InfiniteScroller = Ember.Component.extend({
+export default Ember.Component.extend({
   isFetching: false,
   beginInfinite: true,
   hasMoreContent: true,
@@ -13,42 +13,10 @@ var InfiniteScroller = Ember.Component.extend({
 
   hidden: computed.none('hasMoreContent', 'isFetching'),
 
-  listenerDistance: 500,
+  triggerDistance: 500,
   visibleContent: computed.oneWay('contextController.content'),
   content: computed.oneWay('contextController.content'),
   modelName: computed.readOnly('content.firstObject.constructor.typeKey'),
-  offsetFromTop: null,
-  documentHeight: 0,
-
-  listenForOffset: (function(){
-    this.set('hasMoreContent', true);
-  }).observes('offsetFromTop'),
-
-  listenForDistance: function() {
-    var self = this;
-    if (this.get('beginInfinite')) {
-      Ember.$(window).on('scroll.infinite-scroll', function () {
-        Ember.run(function () {
-          var offsetFromTop = self.$().offset().top;
-          var documentHeight = Ember.$(document).height();
-          var isDistanceFromBottom = ( offsetFromTop - $(window).scrollTop() - Ember.$(window).height() <= self.get('listenerDistance') );
-          self.setProperties({
-            isDistanceFromBottom: isDistanceFromBottom,
-            offsetFromTop: offsetFromTop,
-            documentHeight: documentHeight
-          });
-        });
-      });
-    }
-  }.observes('beginInfinite', 'listenerDistance').on('init'),
-
-  infiniteScroll: function() {
-    if (this.get('isDistanceFromBottom') && this.get('beginInfinite') && this.get('hasMoreContent')) {
-      Ember.run.debounce(this, function() {
-        this.fetchMore();
-      }, 200);
-    }
-  }.observes('isDistanceFromBottom', 'documentHeight'),
 
   fetchMore: function() {
     if (this.get('isFetching')) {return;}
@@ -76,10 +44,11 @@ var InfiniteScroller = Ember.Component.extend({
     });
   },
 
-  willDestroyElement: function() {
-    Ember.$(window).off('scroll.infinite-scroll');
+  actions: {
+    getMoreContent: function() {
+      Ember.run.debounce(this, function() {
+        this.fetchMore();
+      }, 200);
+    }
   }
-
 });
-
-export default InfiniteScroller;

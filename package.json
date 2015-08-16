@@ -34,6 +34,9 @@
     "express": "^4.8.5",
     "glob": "^4.0.5"
   },
+  "dependencies": {
+    "ember-ic-you": "0.1.1"
+  },
   "keywords": [
     "ember-addon"
   ],
