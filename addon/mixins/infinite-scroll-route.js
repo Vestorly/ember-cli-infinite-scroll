@@ -3,6 +3,12 @@ import InfiniteScroll from 'ember-cli-infinite-scroll/mixins/infinite-scroll';
 
 const { Mixin, computed, on } = Ember;
 
+/**
+ A mixin for routes that need infinite scrolling.
+
+ @class InfiniteScrollRouteMixin
+ */
+
 export default Mixin.create(InfiniteScroll, {
 
   /**
