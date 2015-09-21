@@ -2,5 +2,5 @@
 'use strict';
 
 module.exports = {
-  name: 'ember-infinite-scroller'
+  name: 'ember-cli-infinite-scroll'
 };
