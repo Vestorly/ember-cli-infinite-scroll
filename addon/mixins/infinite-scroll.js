@@ -49,6 +49,16 @@ export default Mixin.create({
   _infiniteScrollAvailable: alias('infiniteScrollAvailable'),
 
   /**
+   True if there is more content on the server.
+
+   @property hasMoreContent
+   @type { Boolean }
+   @default true
+   */
+
+  hasMoreContent: true,
+
+  /**
    The start param.
 
    @property start
@@ -132,7 +142,8 @@ export default Mixin.create({
    @returns { Promise } the records
    */
 
-      performInfinite() {
+
+  infiniteQuery() {
     if (this.get('infiniteQuerying')) {return;}
     this.set('infiniteQuerying', true);
 
@@ -140,7 +151,7 @@ export default Mixin.create({
     let params = this.getProperties(infiniteQueryParams);
 
     this.beforeInfiniteQuery(params);
-    let newRecords = this.infiniteQuery(params);
+    let newRecords = this.infiniteDataQuery(params);
     newRecords.then( records => {
       let returnedContentLength = records.get('length');
 
@@ -169,7 +180,7 @@ export default Mixin.create({
    @return { Promise } the records
    */
 
-      infiniteQuery(params) {
+  infiniteDataQuery(params) {
     let modelType = this.get('infiniteModelType');
 
     return this.store.find(modelType, params);
@@ -183,10 +194,13 @@ export default Mixin.create({
    @param  newRecords { Object } the records returned in this cycle
    */
 
-      afterInfiniteQuery(newRecords) {
+  afterInfiniteQuery(newRecords) {
     let modelName = this.get('infiniteModelName');
+    let model = this.get(modelName);
 
-    this.get(modelName).addObjects(newRecords);
+    if (model) {
+      model.addObjects(newRecords);
+    }
   },
 
   /**
@@ -197,9 +211,9 @@ export default Mixin.create({
    @private
    */
 
-      _updateInfiniteProperties(addedLength) {
+  _updateInfiniteProperties(addedLength) {
     this.updateInfiniteCount(addedLength);
-    this.updateInfiniteAvailable(addedLength);
+    this.updateHasMoreContent(addedLength);
     this.incrementProperty('_cycleCount');
   },
 
@@ -219,15 +233,15 @@ export default Mixin.create({
   /**
    Determines whether the infinite scroll should continue after it finishes.
 
-   @method incrementProperties
+   @method updateHasMoreContent
    @param addedLength { Number } the incremental length of the model
    */
 
-      updateInfiniteAvailable(addedLength) {
+  updateHasMoreContent(addedLength) {
     let infiniteIncrementProperty = this.get('infiniteIncrementProperty');
     let shouldIncrement = this.get(infiniteIncrementProperty);
     let hasMoreContent = shouldIncrement >= addedLength;
-    this.set('_infiniteScrollAvailable', hasMoreContent);
+    this.set('hasMoreContent', hasMoreContent);
   },
 
   actions: {
@@ -238,8 +252,8 @@ export default Mixin.create({
      @event performInfinite
      */
 
-        performInfinite() {
-      run.debounce(this, this.performInfinite, 200);
+    performInfinite() {
+      run.once(this, this.infiniteQuery);
     }
   }
 });
