@@ -180,7 +180,7 @@ export default Mixin.create({
    @return { Promise } the records
    */
 
-  infiniteDataQuery(params) {
+  infiniteDataQuery(params={}) {
     let modelType = this.get('infiniteModelType');
 
     return this.store.find(modelType, params);
