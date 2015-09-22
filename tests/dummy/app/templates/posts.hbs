@@ -1,0 +1,19 @@
+<div class="main-content">
+  {{#each model as |post|}}
+    {{#if post.imageUrl}}
+      <h2>
+        {{post.title}}
+      </h2>
+      <hr>
+      <img {{bind-attr src=post.imageUrl}}>
+      <hr>
+      {{{post.body}}}
+      <hr>
+    {{/if}}
+  {{/each}}
+  {{infinite-scroll}}
+</div>
+
+<div class="side-content">
+  {{infinite-scroll-container infiniteModelType='post'}}
+</div>

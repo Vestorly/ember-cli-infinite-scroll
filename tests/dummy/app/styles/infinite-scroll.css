@@ -1,0 +1,55 @@
+@-webkit-keyframes animate-spinner {
+    0% {
+        -webkit-transform: rotate(0deg) scale(0.6);
+        opacity: 0.1;
+    }
+
+    50% {
+        -webkit-transform: rotate(179deg) scale(1);
+        opacity: 1;
+    }
+
+    100% {
+        -webkit-transform: rotate(359deg) scale(0.6);
+        opacity: 0.1;
+    }
+}
+
+@keyframes animate-spinner {
+    0% {
+        transform: rotate(0deg) scale(0.6);
+        opacity: 0.1;
+        filter: alpha(opacity=10);
+    }
+
+    50% {
+        transform: rotate(179deg) scale(1);
+        filter: alpha(opacity=10);
+    }
+
+    100% {
+        transform: rotate(359deg) scale(0.6);
+        opacity: 0.1;
+        filter: alpha(opacity=10);
+    }
+}
+
+.fetching-spinner {
+    text-align: center;
+    margin: auto;
+}
+
+.fetching-spinner .animate-spinner {
+    -webkit-animation: animate-spinner 1.4s infinite linear;
+    animation: animate-spinner 1.4s infinite linear;
+}
+
+.infinite-scroller.hidden {
+    display: none;
+}
+
+.icon-spinner {
+    height: 100px;
+    width: 100px;
+    background: url("/assets/spinner.png") no-repeat 50%;
+}
