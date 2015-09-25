@@ -99,24 +99,24 @@ export default Mixin.create({
   infiniteIncrementBy: 'limit',
 
   /**
-   The name of the model that the `infiniteScroll` records will be added to.
+   The name of the property that the `infiniteScroll` records will be added to.
 
-   @property infiniteModelName
+   @property infiniteContentPropertyName
    @type { String }
    @default 'model'
    */
 
-  infiniteModelName: 'model',
+  infiniteContentPropertyName: 'model',
 
   /**
-   The model type that will be queried.
+   The model name that will be queried.
 
    @property infiniteModelType
    @type { String }
    @default ''
    */
 
-  infiniteModelType: '',
+  infiniteModelName: '',
 
   /**
    An array of params that are needed for the infinite query.
@@ -142,16 +142,17 @@ export default Mixin.create({
    @returns { Promise } the records
    */
 
-
   infiniteQuery() {
     if (this.get('infiniteQuerying')) {return;}
     this.set('infiniteQuerying', true);
 
     let infiniteQueryParams = this.get('infiniteQueryParams');
+    let infiniteModelName = this.get('infiniteModelName');
+
     let params = this.getProperties(infiniteQueryParams);
 
     this.beforeInfiniteQuery(params);
-    let newRecords = this.infiniteDataQuery(params);
+    let newRecords = this.infiniteDataQuery(infiniteModelName, params);
     newRecords.then( records => {
       let returnedContentLength = records.get('length');
 
@@ -176,14 +177,13 @@ export default Mixin.create({
    The query that will be used.
 
    @method infiniteQuery
+   @param modelName { String } the name of the model
    @param params { Object } the params that will be used in the query
    @return { Promise } the records
    */
 
-  infiniteDataQuery(params={}) {
-    let modelType = this.get('infiniteModelType');
-
-    return this.store.query(modelType, params);
+  infiniteDataQuery(modelName, params={}) {
+    return this.store.query(modelName, params);
   },
 
   /**
@@ -195,8 +195,8 @@ export default Mixin.create({
    */
 
   afterInfiniteQuery(newRecords) {
-    let modelName = this.get('infiniteModelName');
-    let model = this.get(modelName);
+    let contentPropertyName = this.get('infiniteContentPropertyName');
+    let model = this.get(contentPropertyName);
 
     if (model) {
       model.addObjects(newRecords.get('content'));

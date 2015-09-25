@@ -65,14 +65,37 @@ export default Mixin.create(InfiniteScroll, {
   }),
 
   /**
+   Allows a modelName and query to be specified in the method rather than
+   defining properties for infiniteModelName and infiniteQueryParams on the route.
+
+   @method infiniteQuery
+   @param modelName { String } the model to be queried
+   @param params { Object } params to use in the query
+   */
+
+  infiniteQuery(modelName, params) {
+    if(modelName) {
+      this.set('infiniteModelName', modelName);
+    }
+
+    if(params) {
+      let paramsToSet = Ember.keys(params);
+      this.set('infiniteQueryParams', paramsToSet);
+      this.setProperties(params);
+    }
+
+    return this._super.apply(this, arguments);
+  },
+
+    /**
    The name of the model that the infinite content will be added to.
 
-   @property infiniteModelName
+   @property infiniteContentPropertyName
    @type { String }
    @default 'controller.model'
    */
 
-  infiniteModelName: 'controller.model',
+  infiniteContentPropertyName: 'controller.model',
 
   /**
    Resets the property defined by `infiniteIncrementProperty` on

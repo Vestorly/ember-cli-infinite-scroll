@@ -5,9 +5,7 @@ import InfiniteScrollRouteMixin from 'ember-cli-infinite-scroll/mixins/infinite-
 const { Route } = Ember;
 
 export default Route.extend(InfiniteScrollRouteMixin, {
-  infiniteModelType: 'post',
-
   model() {
-    return this.infiniteQuery();
+    return this.infiniteQuery('post');
   }
 });

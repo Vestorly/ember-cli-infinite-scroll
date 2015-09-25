@@ -8,8 +8,6 @@ export default Component.extend(InfiniteScrollMixin, {
 
   scrollContainer: '.infinite-scroll-container',
 
-  modelName: 'model',
-
   didInsertElement() {
     let store = this.container.lookup('store:main');
     this.set('store', store);
@@ -25,13 +23,13 @@ export default Component.extend(InfiniteScrollMixin, {
    */
 
   afterInfiniteQuery(newRecords) {
-    let modelName = this.get('infiniteModelName');
-    let model = this.get(modelName);
+    let infiniteContentPropertyName = this.get('infiniteContentPropertyName');
+    let model = this.get(infiniteContentPropertyName);
 
     if (model) {
-      model.addObjects(newRecords);
+      model.addObjects(newRecords.get('content'));
     } else {
-      this.set(modelName, newRecords);
+      this.set(infiniteContentPropertyName, newRecords);
     }
   }
 });
