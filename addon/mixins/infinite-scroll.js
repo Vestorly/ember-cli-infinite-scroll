@@ -183,7 +183,7 @@ export default Mixin.create({
   infiniteDataQuery(params={}) {
     let modelType = this.get('infiniteModelType');
 
-    return this.store.find(modelType, params);
+    return this.store.query(modelType, params);
   },
 
   /**
@@ -199,7 +199,7 @@ export default Mixin.create({
     let model = this.get(modelName);
 
     if (model) {
-      model.addObjects(newRecords);
+      model.addObjects(newRecords.get('content'));
     }
   },
 
