@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import InfiniteScroll from 'ember-cli-infinite-scroll/mixins/infinite-scroll';
+import InfiniteScrollMixin from 'ember-cli-infinite-scroll/mixins/infinite-scroll';
 
 const { Mixin, computed, on } = Ember;
 
@@ -7,9 +7,10 @@ const { Mixin, computed, on } = Ember;
  A mixin for routes that need infinite scrolling.
 
  @class InfiniteScrollRouteMixin
+ @uses InfiniteScrollMixin
  */
 
-export default Mixin.create(InfiniteScroll, {
+export default Mixin.create(InfiniteScrollMixin, {
 
   /**
    Delegates a given property to the related controller (or specified controller
