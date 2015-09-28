@@ -1,0 +1,15 @@
+{{#each model as |post|}}
+  {{#if post.imageUrl}}
+    <h3>
+      {{post.title}}
+    </h3>
+    <hr>
+    <img {{bind-attr src=post.imageUrl}}>
+    <hr>
+    <div class="container-body-text">
+      {{{post.body}}}
+    </div>
+    <hr>
+  {{/if}}
+{{/each}}
+{{infinite-scroll scrollContainer=scrollContainer}}
