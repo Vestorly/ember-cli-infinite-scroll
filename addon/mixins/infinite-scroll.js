@@ -131,6 +131,8 @@ export default Mixin.create({
   /**
    Does what's needed for the infinite scroll.
    - sets `infiniteQuerying` to `true`
+   - if passed `modelName`, sets `infiniteModelName`
+   - if passed `params`, sets `infiniteQueryParams`
    - calls `beforeInfiniteQuery`
    - calls `infiniteQuery`
    then:
@@ -139,17 +141,29 @@ export default Mixin.create({
    - sets ` infiniteQuerying` to `false`
 
    @method performInfinite
+   @param modelName { String } the model to be queried
+   @param params { Object } params to use in the query
    @returns { Promise } the records
    */
 
-  infiniteQuery() {
+  infiniteQuery(modelName, params) {
     if (this.get('infiniteQuerying')) {return;}
     this.set('infiniteQuerying', true);
 
-    let infiniteQueryParams = this.get('infiniteQueryParams');
-    let infiniteModelName = this.get('infiniteModelName');
+    if(modelName) {
+      this.set('infiniteModelName', modelName);
+    }
 
-    let params = this.getProperties(infiniteQueryParams);
+    if(params) {
+      let paramsToSet = Ember.keys(params);
+      this.set('infiniteQueryParams', paramsToSet);
+      this.setProperties(params);
+    }
+
+    let infiniteModelName = this.get('infiniteModelName');
+    let infiniteQueryParams = this.get('infiniteQueryParams');
+
+    params = this.getProperties(infiniteQueryParams);
 
     this.beforeInfiniteQuery(params);
     let newRecords = this.infiniteDataQuery(infiniteModelName, params);
@@ -204,7 +218,7 @@ export default Mixin.create({
   },
 
   /**
-   Calls `updateInfiniteCount` and `updateInfiniteAvailable`.
+   Calls `_updateInfiniteCount` and `updateInfiniteAvailable`.
 
    @method _updateScrollProperties
    @param addedLength { Number } the incremental length of the model
@@ -212,7 +226,7 @@ export default Mixin.create({
    */
 
   _updateInfiniteProperties(addedLength) {
-    this.updateInfiniteCount(addedLength);
+    this._updateInfiniteCount(addedLength);
     this.updateHasMoreContent(addedLength);
     this.incrementProperty('_cycleCount');
   },
@@ -220,11 +234,12 @@ export default Mixin.create({
   /**
    Increments a property after the infinite scroll is finished.
 
-   @method updateInfiniteCount
+   @method _updateInfiniteCount
    @param addedLength { Number } the incremental length of the model
+   @private
    */
 
-      updateInfiniteCount(addedLength) {
+  _updateInfiniteCount(addedLength) {
     let incrementProperty = this.get('infiniteIncrementProperty');
 
     this.incrementProperty(incrementProperty, addedLength);
