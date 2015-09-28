@@ -1,108 +1,175 @@
-# Ember Infinite Scroller
+# ember-cli-infinite-scroll
 
-Ember Infinite Scroller is a component that sits at the bottom of a page of content. It calls
-`store.find` to get more content and pushes the content into a model when a user scrolls to
-the bottom.
+**ember-cli-infinite-scroll** is an ember-cli addon that can be used as a mixin or a component. By default it issues ember data queries using 'start' and 'limit', incrementing each time a query is made.
 
-## Installation
+### Installation
+---
 
-* Install addon `npm install ember-infinite-scroller --save-dev`
-* Generate template and styles `ember g infinite-scroller`
+* Install addon `ember install ember-cli-infinite-scroll`
+* Generate templates and styles `ember g ember-cli-infinite-scroll`
 
-## Implementation
-Drop the infinite scroller component into any template. There is one required param: `contextController`.
-In most cases it will be `this`.
+### As a component
+---
 
-```handlebars
-{{infinite-scroller contextController=this}}
-```
-
-Other parameters are optional.
-
-* `limit` default: 12
+Use `infinite-scroll-container` as a self-contained component. Specify the name of the model that will be queried as `infiniteModelName`.
 
 ```handlebars
-{{infinite-scroller contextController=this limit=30}}
+{{infinite-scroll-container infiniteModelName='post'}}
 ```
 
-* `beginInfinite` default: `true`
+### As a controller/component mixin
+---
 
-Use `beginInfinite` to start or stop manually. For example:
-
-Template:
-
-```handlebars
-<button {{action 'toggleBeginInfinite'}}>Begin</button>
-{{infinite-scroller  contextController=this beginInfinite=beginInfinite}}
-```
-
-Controller:
+Use `mixins/infinite-scroll` in a controller or component.
 
 ```javascript
+import Ember from 'ember';
+import InfiniteScrollMixin from 'ember-cli-infinite-scroll/mixins/infinite-scroll';
+
+export default Ember.Controller.extend(InfiniteScrollMixin, {
+  startContentQuery() {
+    this.infiniteQuery('post');
+  }
+});
+```
+
+In the template, use the `infinite-scroll` component at the bottom of the 
+infinite content.
+
+```handlebars
+{{#each model as |post|}}
+  {{post.title}}
+{{/each}}
+{{infinite-scroll}}
+```
+
+### As a route mixin
+---
+
+Use `mixins/infinite-scroll-route` in a route.
+
+```javascript
+import Ember from 'ember';
+import InfiniteScrollRouteMixin from 'ember-cli-infinite-scroll/mixins/infinite-scroll-route';
+
+export default Ember.Route.extend(InfiniteScrollRouteMixin, {
+  model() {
+    return this.infiniteQuery('post', { popular: true });
+  }
+});
+```
+
+In the template, use the `infinite-scroll` component at the bottom of the infinite content.
+
+```handlebars
+{{#each model as |post|}}
+  {{post.title}}
+{{/each}}
+{{infinite-scroll}}
+```
+
+Controllers (and in the future, routable components), have access to `infiniteScrollAvailable`, `hasMoreContent`, and `infiniteQuerying`, which can be used in templates.
+
+### Properties
+---
+
+| Property | Default | Description |
+|----------|-------------|---------|
+| `infiniteQuerying` | `false` | True when a query is in progress. |
+| `infiniteScrollAvailable` | `true` | True if the infinite query can be triggered |
+| `hasMoreContent` | `true` | True if it expects to find more content with another query |
+| `infiniteIncrementProperty` | `'start'` | The name of the property that will be incremented with each query |
+| `infiniteIncrementBy` | `'limit'` | The name of the property that will increment `infiniteIncrementProperty` |
+| `infiniteContentPropertyName` | `'model'` | The name of the property that the records will be added to. |
+| `infiniteModelName` | `''` | The name of the model that will be queried |
+| `infiniteQueryParams` | `['start', 'limit']` | Name of params that will be sent with each query |
+
+### Methods 
+---
+
+| Method | Params | Description |
+|--------|--------|-------------|
+| `infiniteQuery` | `modelName`, `params` | Calls `beforeInfiniteQuery`, `infiniteQuery` and `afterInfiniteQuery`. If passed `modelName`, sets `infiniteModelName`. If passed `params`, sets `infiniteQueryParams`. |
+| `beforeInfiniteQuery` | `params` | Called before the query. `params` are the params to be used in the query |
+| `infiniteDataQuery` | `modelName`, `params` | Performs the query with a model name and params |
+| `afterInfiniteQuery` | `newRecords` | Adds the new records to the current collection |
+| `updateHasMoreContent` | `addedLength` | If `addedLength` is 0, sets `hasMoreContent` to `false` |
+
+### Examples
+---
+
+**Dynamic Query Params**
+
+```javascript
+infiniteModelName: 'post',
+
+infiniteQueryParams: ['start', 'limit', 'recent'],
+
+limit: Ember.computed('isMobile', function() {
+  if(this.get('isMobile')) {
+    return 4;
+  }
+   
+  return 10;
+})
+
 actions: {
-  toggleBeginInfinite: function() {
-    this.toggleProperty('beginInfinite')
+  toggleRecent: function() {
+    this.toggleProperty('recent');
   }
 }
 ```
 
-* `content` default: the content of the contextController
 
-The `content` can be customized if the content of the infinite scroller is not the model
-of the controller.
-
-```handlebars
-{{infinite-scroller contextController=this content=otherModel}}
-```
-
-* `modelName` default: the name of the model of the content
-
-If the infinite scroller should query a different model than the content of the content,
-it can be overwritten.
-
-For example, if the content model type is `'note'` but the query should be for `'comment'`:
-
-```handlebars
-{{infinite-scroller contextController=this modelName='comment'}}
-```
-
-* `query` default:
+**Process Records After Query**
 
 ```javascript
-{model: this.get('modelName'), params: {}, callback: null}
-```
-
-The `query` has a required `modelName` and `params` and an optional `callback`.
-
-```handlebars
-{{infinite-scroller contextController=this query=query}}
-```
-
-Controller:
-
-```javascript
-query: function() {
-  var query = {
-    model: 'post',
-    params: {published: true},
-    callback: function(posts) {
-      // do cool things with posts when they come back.
-    }
-  };
-  return query;
+afterInfiniteQuery(newRecords) {
+newRecords.setEach('popular', true);
+return this._super(newRecords); // adds records to the model
 }
 ```
 
-## Blueprint
 
-The blueprint template comes with some handy features, including a `yield` that is
-displayed when the infinite scroller is out of content.
+**Turn Off Infinite Scroll Every 100 Records** 
 
-```handlebars
-{{infinite-scroller contextController=this}}
-  <span>No more content!</span>
-{{/infinite-scroller}}
+```javascript
+afterInfiniteQuery(newRecords) {
+  let currentCount = this.get('currentCount') + newRecords.get('length');
+  
+  if(currentCount > 100) {
+    this.set('infiniteScrollAvailable', false);
+    this.set('currentCount', 0);
+  } else {
+    set('currentCount', currentCount);
+  } 
+  
+  return this._super.apply(this, arguments);
+},
+
+actions: {
+  turnOnInfiniteScroll: {
+    this.set('infiniteScrollAvailable', true);
+  }
+}
 ```
 
-It also includes a loading spnner When the scroller is fetching content, it displays a spinner.
-The default is an image, but you can customize the css to change the spinner.
+Template:
+```handlebars
+{{#unless infiniteScrollAvailable}}
+  <button {{action 'turnOnInfiniteScroll'}}>Show More</button>
+{{/unless}}
+```
+
+**Add an End-of-Content Message**
+
+```handlebars
+{{#unless hasMoreContent}}
+  You're at the end of the line.
+{{/unless}}
+```
+
+###Other Resources
+---
+
+[Ember Infinity](http://hhff.github.io/ember-infinity/) is a great addon that works with the Kaminari Gem out of the box.
