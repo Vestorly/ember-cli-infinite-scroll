@@ -1,7 +1,6 @@
 import Ember from 'ember';
 
-const { Mixin, run, computed } = Ember;
-const { alias } = computed;
+const { Mixin, run } = Ember;
 
 /**
  A mixin for infinite scrolls.
@@ -39,14 +38,6 @@ export default Mixin.create({
    */
 
   infiniteScrollAvailable: true,
-
-  /**
-   An alias for infiniteScrollAvailable, to be overridden in the route.
-
-   @property _infiniteScrollAvailable
-   */
-
-  _infiniteScrollAvailable: alias('infiniteScrollAvailable'),
 
   /**
    True if there is more content on the server.
@@ -253,9 +244,9 @@ export default Mixin.create({
    */
 
   updateHasMoreContent(addedLength) {
-    let infiniteIncrementProperty = this.get('infiniteIncrementProperty');
-    let shouldIncrement = this.get(infiniteIncrementProperty);
-    let hasMoreContent = shouldIncrement >= addedLength;
+    let infiniteIncrementBy = this.get('infiniteIncrementBy');
+    let shouldIncrement = this.get(infiniteIncrementBy);
+    let hasMoreContent = addedLength >= shouldIncrement;
     this.set('hasMoreContent', hasMoreContent);
   },
 
