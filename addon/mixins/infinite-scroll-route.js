@@ -13,6 +13,17 @@ const { Mixin, computed, on } = Ember;
 export default Mixin.create(InfiniteScrollMixin, {
 
   /**
+   Sets defaults for `infiniteScrollAvailable` and `hasMoreContent`
+
+   @method beforeModel
+   */
+
+  beforeModel: function() {
+    this.set('infiniteScrollAvailable', true);
+    this.set('hasMoreContent', true);
+  },
+
+  /**
    Delegates a given property to the related controller (or specified controller
    if `controllerName` is defined. This is useful so that properties are
    available to use on the controller.

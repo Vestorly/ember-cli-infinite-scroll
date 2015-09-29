@@ -11,9 +11,14 @@
       <hr>
     {{/if}}
   {{/each}}
-  {{infinite-scroll}}
+  {{#unless hasMoreContent}}
+      <div>
+          This is the bitter end.
+      </div>
+  {{/unless}}
+  {{infinite-scroll triggerDistance=200}}
 </div>
 
 <div class="side-content">
-  {{infinite-scroll-container infiniteModelName='post'}}
+  {{infinite-scroll-container infiniteModelName='post' infiniteQueryParams=sidebarParams group_ids='5609ead447c732372b00004e'}}
 </div>
