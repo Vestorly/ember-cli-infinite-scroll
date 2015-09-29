@@ -1,39 +1,7 @@
-html, body {
-  margin: 20px;
-  font-family: "Open Sans";
-  font-weight: 300;
-}
-
-h1, h2, h3 {
-  font-family: Merriweather;
-}
-
-.infinite-scroll-container {
-  width: 300px;
-  height: 1000px;
-  overflow: scroll;
-}
-
-.container {
-  width: 80%;
-  margin: auto;
-}
-
-.container-body-text {
-  font-size: 12px;
-}
-
-.main-content {
-  width: 60%;
-  float: left;
-}
-
-.side-content {
-  width: 30%;
-  margin-left: 10%;
-  display: inline-block;
-}
-
-img {
-  max-width: 100%;
-}
+@import url('../assets/fonts.css');
+@import url('pygment_trac.css');
+@import url('bootstrap.min.css');
+@import url('style.css');
+@import url('styles.css');
+@import url('infinite-scroll.css');
+@import url("https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css");

@@ -1,0 +1,274 @@
+/* ================================================================================
+	#Reset
+================================================================================ */
+* { padding: 0; margin: 0; outline: 0; }
+
+/* ================================================================================
+	#Base
+================================================================================ */
+html,
+body { height: 100%; }
+
+body { min-width: 320px; background: #fff; font-family: 'Freight Sans Pro Book', sans-serif; font-size: 21px; line-height: 1.61; color: #31343f; }
+
+a { color: #000; text-decoration: none; cursor: pointer; }
+a:hover { text-decoration: underline; }
+
+img { border: 0; vertical-align: middle; }
+
+ol,
+ul { list-style-position: inside; }
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 { font-weight: normal; }
+
+h1 { font-size: 52px; line-height: 1.23; }
+h3 { font-size: 22px; line-height: 1.33; }
+
+p { padding-bottom: 35px; }
+strong { font-family: 'Freight Sans Pro Medium'; font-weight: normal; }
+
+/* ================================================================================
+	#Helpers
+================================================================================ */
+.alignleft { float: left; }
+.alignright { float: right; }
+
+.clearfix:before,
+.clearfix:after { display: table; content: ''; }
+.clearfix:after { clear: both; }
+.clearfix { *zoom: 1; }
+
+/* ================================================================================
+	#Buttons
+================================================================================ */
+.btn { display: inline-block; border: 0; border-radius: 2px; font-family: 'Freight Sans Pro Semibold'; font-size: 19px; color: #fff; text-align: center; text-transform: uppercase; vertical-align: middle; cursor: pointer; -webkit-appearance: none; font-weight: normal; }
+.btn:hover { text-decoration: none; color: #fff; }
+
+.btn-bordered { padding: 0 13px; border: 2px solid #ae908e; border-radius: 3px; height: 38px; font-size: 14px; line-height: 34px; letter-spacing: 1px; }
+.btn-bordered:hover { border-color: #fff; }
+
+.btn-light,
+.btn-dark { width: 293px; height: 60px; padding: 0; line-height: 60px; }
+
+.btn-light { background: #6c7990; }
+.btn-light:hover { background: #969faf; }
+
+.btn-dark { background: #48475a; }
+.btn-dark:hover  { background: #626173; }
+
+.btn-orange { height: 60px; padding: 0 40px; background: #d9462e; font-size: 18px; line-height: 60px; color: #fff; letter-spacing: 1px; }
+.btn-orange:hover { background: #f26751; }
+
+.btn {
+	-webkit-transition: border .3s, background .3s;
+	   -moz-transition: border .3s, background .3s;
+	     -o-transition: border .3s, background .3s;
+	        transition: border .3s, background .3s; 
+}
+
+/* ================================================================================
+	#Icons
+================================================================================ */
+[class^="icon-"] { display: inline-block; width: 29px; height: 26px; background-image: url(images/sprite.png); font-size: 0; line-height: 0; vertical-align: middle; }
+
+.icon-facebook { background-position: 0 0; }
+.icon-twitter { background-position: -94px -239px; }
+
+/* ================================================================================
+	#Containers
+================================================================================ */
+.wrapper { position: relative; min-height: 100%; }
+.main-intro { padding-bottom: 150px; }
+
+/* ================================================================================
+	#Header
+================================================================================ */
+.header { position: absolute; top: 0; left: 0; right: 0; z-index: 7; }
+.header .container { overflow: hidden; width: 1170px; padding-top: 14px; }
+
+.logo { overflow: hidden; float: left; display: block; width: 162px; height: 47px; background: url(images/sprite.png) -28px -182px no-repeat; text-indent: 100%; white-space: nowrap; }
+
+.header .actions { float: right; padding-top: 6px; }
+
+/* ================================================================================
+	#Intro
+================================================================================ */
+.intro { position: relative; height: 551px; padding-top: 140px; }
+.intro-high { height: 500px; padding-top: 170px; }
+
+.intro-entry .logo-torii { position: relative; z-index: 7; overflow: hidden; display: inline-block; width: 218px; height: 90px; margin-bottom: 20px; background: url(images/sprite.png) 0 -82px no-repeat; text-indent: 100%; white-space: nowrap; }
+.intro-entry { position: relative; z-index: 7; width: 840px; margin: 0 auto; font-size: 25px; color: #d0d6e2; text-align: center; letter-spacing: 1px; }
+.intro-entry h1 { padding-bottom: 24px; color: #fff; letter-spacing: 2px; }
+.intro-high h1 { padding-bottom: 45px; letter-spacing: 3.5px; }
+
+.intro-entry .btn-bordered { height: 58px; padding: 0 30px; border-color: #9394a0; font-size: 18px; line-height: 54px; }
+.intro-entry .btn-bordered:hover { border-color: #fff; }
+
+.fsr-container { overflow: hidden; background-position: center center; background-repeat: no-repeat; background-size: cover; }
+.fsr-element { position: absolute; }
+.fsr-hidden { display: none; }
+
+/* ================================================================================
+	#Callout
+================================================================================ */
+.callout { padding: 75px 0 27px; background: #ebedf3; text-align: center; }
+.callout h3 { padding-bottom: 43px; }
+.callout h3 strong { display: block; }
+.callout h3:first-child { letter-spacing: .3px; }
+.callout .actions { padding-bottom: 43px; }
+.callout .btn { letter-spacing: .5px; }
+.callout .btn ~ .btn { margin-left: 12px; }
+
+/* ================================================================================
+	#Section
+================================================================================ */
+.section { padding: 72px 0 40px; }
+.section h3 { padding-bottom: 23px; font-family: 'Freight Sans Pro Semibold'; letter-spacing: 2px; }
+.section p { letter-spacing: .4px; }
+
+.section-grey { padding: 62px 0 75px; background: #f0f1f6; }
+.section-intro { padding: 82px 0 53px; }
+.section-intro h3 { padding-bottom: 32px; letter-spacing: 1px; }
+
+.code { width: 850px; padding-bottom: 15px; }
+.code .more { text-align: right; }
+.code .more a { color: #46435c; }
+.code pre { padding: 28px 30px 38px; margin-bottom: 12px; background: #dee0e7; font-family: 'Monaco'; font-size: 19px; line-height: 1.79; color: #43474c; -moz-tab-size: 2; -o-tab-size: 2; tab-size: 2; letter-spacing: 0.7px; }
+
+/* ================================================================================
+	#Footer
+================================================================================ */
+.footer { height: 150px; padding-top: 45px; background: #181b20; }
+.footer .container { overflow: hidden; }
+.footer-dark { position: absolute; bottom: 0; left: 0; right: 0; }
+
+.footer-simple { height: 66px; padding-top: 39px; background: #fff; font-size: 19px; color: #424654; text-align: center; letter-spacing: 1px; }
+.footer-simple span { font-family: 'Freight Sans Pro Semibold'; }
+
+.footer-left { float: left; }
+.logo-footer { overflow: hidden; display: block; width: 121px; height: 36px; margin-bottom: 6px; background: url(images/sprite.png) 0 -36px no-repeat; text-indent: 100%; white-space: nowrap; }
+.copyrights { padding: 0 0 0 5px; font-family: 'Freight Sans Pro Medium'; font-size: 14px; color: #e6e7e8; }
+
+.footer-right { float: right; padding-top: 14px; }
+.footer-nav { float: left; margin-right: 40px; }
+.footer-nav ul { overflow: hidden; list-style: none outside none; }
+.footer-nav li { float: left; }
+.footer-nav li ~ li { margin-left: 36px; }
+.footer-nav a {  font-family: 'Freight Sans Pro Medium'; font-size: 15px; color: #e6e7e8; }
+.footer-nav a:hover { color: #7a899e; text-decoration: none; }
+
+.socials { float: right; }
+.socials a:hover { margin-top: -5px; }
+.socials a ~ a { margin-left: 31px; }
+.socials a {
+	-webkit-transition: margin .3s;
+	   -moz-transition: margin .3s;
+	     -o-transition: margin .3s;
+	        transition: margin .3s; 
+}
+
+/* ================================================================================
+	#Responsive
+================================================================================ */
+@media only screen and (max-width: 1170px) {
+	.header .container { width: auto; }
+
+}
+
+/* iPad Landscape */
+@media only screen and (max-width: 1024px) {
+
+}
+
+/* iPad Portrait */
+@media only screen and (min-width: 768px) and (max-width: 985px){
+	h3 { font-size: 23px; }
+	.intro-entry { width: 680px; font-size: 22px; }
+	.intro-entry h1 { font-size: 41px; }
+
+	.code { width: 712px; }
+}
+
+/* All Mobile Sizes (devices and browsers) */
+@media only screen and (max-width: 767px) {
+	body { font-size: 16px; }
+	h3 { font-size: 20px; }
+	p { padding-bottom: 10px; }
+	.intro { padding-top: 170px; }
+	.intro-entry { width: auto; font-size: 15px; }
+	.intro-entry h1 { font-size: 27px; }
+	
+	.callout { padding: 35px 0 10px; }
+	.callout .actions { padding-bottom: 10px; }
+	.btn-light, 
+	.btn-dark { width: 215px; }
+
+	.section { padding: 20px 0 10px; }
+	.code { width: auto; }
+	.code pre { font-size: 12px; }
+	
+	.main-intro { padding-bottom: 0; }
+	.footer-simple p { margin-bottom: 30px; }
+
+	.footer-left { float: none; text-align: center; }
+	.logo-footer { margin: 0 auto; }
+	.footer { height: auto; }
+	.footer-right { overflow: hidden; float: none; width: 418px; margin: 0 auto; }
+
+	.footer-dark { position: static; left: auto; right: auto; bottom: auto; padding-bottom: 20px; }
+}
+
+/* Mobile Portrait Size to Mobile Landscape Size (devices and browsers) */
+@media only screen and (max-width: 479px) {
+	.header .actions,
+	.logo { float: none; text-align: center; margin: 10px auto; }
+	.btn-light, 
+	.btn-dark { width: 293px; }
+	.callout .btn ~ .btn { margin: 12px 0 0 0; }
+
+	.section-grey .actions { text-align: center; }
+	
+	.footer-right { width: auto; text-align: center; }
+	.socials,
+	.footer-nav { float: none; }
+	.footer-nav { margin: 0 0 20px 0; }
+	.footer-nav li { float: none; display: inline-block; }
+	.footer-nav li ~ li { margin-left: 30px; }
+
+}
+
+table.buttons {
+  margin: 0 auto;
+}
+
+table.buttons tr td {
+  padding: 6px;
+  text-align: center;
+}
+
+.intro-entry pre {
+  text-align: left;
+}
+
+.header-bg {
+  background: url("images/temp/intro.jpg");
+  padding-bottom: 19px;
+}
+
+.back-link {
+  margin: 6px 0 0 0;
+}
+
+button.auth {
+  margin-bottom: 15px;
+  min-width: 207px;
+}
+
+.text-center {
+	text-align: center;
+}

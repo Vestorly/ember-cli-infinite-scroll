@@ -1,24 +1,27 @@
-<div class="main-content">
-  {{#each model as |post|}}
-    {{#if post.imageUrl}}
-      <h2>
-        {{post.title}}
-      </h2>
-      <hr>
-      <img {{bind-attr src=post.imageUrl}}>
-      <hr>
-      {{{post.body}}}
-      <hr>
-    {{/if}}
-  {{/each}}
-  {{#unless hasMoreContent}}
-      <div>
-          This is the bitter end.
-      </div>
-  {{/unless}}
-  {{infinite-scroll triggerDistance=200}}
-</div>
+<div class="row">
+  <div class="col-sm-8">
+    {{#each model as |post|}}
+      {{#if post.imageUrl}}
+        <h2>
+          {{post.title}}
+        </h2>
+        <img {{bind-attr src=post.logoUrl}}>
+        <hr>
+        <img class="article-image" {{bind-attr src=post.imageUrl}}>
+        <hr>
+        {{{post.body}}}
+        <hr>
+      {{/if}}
+    {{/each}}
+    {{#unless hasMoreContent}}
+        <div>
+            This is the bitter end.
+        </div>
+    {{/unless}}
+  </div>
 
-<div class="side-content">
-  {{infinite-scroll-container infiniteModelName='post' infiniteQueryParams=sidebarParams group_ids='5609ead447c732372b00004e'}}
+  <div class="col-sm-3 col-sm-offset-1">
+    {{infinite-scroll-container infiniteModelName='post' infiniteQueryParams=sidebarParams group_ids='5609ead447c732372b00004e'}}
+  </div>
 </div>
+{{infinite-scroll triggerDistance=200}}
