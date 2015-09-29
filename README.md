@@ -1,6 +1,11 @@
-# ember-cli-infinite-scroll [![Master Build Status](https://circleci.com/gh/Vestorly/ember-cli-infinite-scroll.png?style=shield)](https://circleci.com/gh/Vestorly/ember-cli-infinite-scroll/tree/master)
+# ember-cli-infinite-scroll [![Master Build Status](https://circleci.com/gh/Vestorly/ember-cli-infinite-scroll.png?style=shield)](https://circleci.com/gh/Vestorly/ember-cli-infinite-scroll/tree/master) 
+Demo at [http://vestorly.github.io/ember-cli-infinite-scroll](http://vestorly.github.io/ember-cli-infinite-scroll)
 
-**ember-cli-infinite-scroll** is an ember-cli addon that can be used as a mixin or a component. By default it issues ember data queries using 'start' and 'limit', incrementing each time a query is made.
+Most Ember data adapters perform data fetches in a single query. This can be problematic for data transfer and rendering. If a user never views the content, it can also put unnecessary strain on an app.   
+
+**ember-cli-infinite-scroll** is an ember-cli addon that can be used as a mixin or a component. By default it issues ember data queries using 'start' and 'limit', incrementing each time a query is made. 
+
+Advanced features include dynamically calculating query params, pre- and post-query processing methods, and state properties in components and controllers for display of loading spinners and end-of-content messages. 
 
 ### Installation
 ---
@@ -82,7 +87,7 @@ Controllers (and in the future, routable components), have access to `infiniteSc
 | `infiniteIncrementBy` | `'limit'` | The name of the property that will increment `infiniteIncrementProperty` |
 | `infiniteContentPropertyName` | `'model'` | The name of the property that the records will be added to. |
 | `infiniteModelName` | `''` | The name of the model that will be queried |
-| `infiniteQueryParams` | `['start', 'limit']` | Name of params that will be sent with each query |
+| `infiniteQueryParams` | `[]` | Name of params that will be sent with each query, in addition to `infiniteIncrementProperty` and `infiniteIncrementBy` |
 
 ### Methods 
 ---
@@ -103,7 +108,7 @@ Controllers (and in the future, routable components), have access to `infiniteSc
 ```javascript
 infiniteModelName: 'post',
 
-infiniteQueryParams: ['start', 'limit', 'recent'],
+infiniteQueryParams: ['recent'],
 
 limit: Ember.computed('isMobile', function() {
   if(this.get('isMobile')) {
@@ -172,4 +177,4 @@ Template:
 ###Other Resources
 ---
 
-[Ember Infinity](http://hhff.github.io/ember-infinity/) is a great addon that works with the Kaminari Gem out of the box.
+[Ember Infinity](http://hhff.github.io/ember-infinity/) is a great addon that works with the Rails Kaminari Gem.
