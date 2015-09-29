@@ -11,7 +11,6 @@ Advanced features include dynamically calculating query params, pre- and post-qu
 ---
 
 * Install addon `ember install ember-cli-infinite-scroll`
-* Generate templates and styles `ember g ember-cli-infinite-scroll`
 
 ### As a component
 ---
