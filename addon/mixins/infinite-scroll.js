@@ -1,6 +1,6 @@
 import Ember from 'ember';
 
-const { Mixin, run } = Ember;
+const { Mixin, run, computed } = Ember;
 
 /**
  A mixin for infinite scrolls.
@@ -110,14 +110,28 @@ export default Mixin.create({
   infiniteModelName: '',
 
   /**
+   The default parameters.
+
+   @property _fullQueryParams
+   @default ['start', 'limit']
+   @private
+   */
+
+  _fullQueryParams: computed('infiniteIncrementBy', 'infiniteIncrementProperty', 'infiniteQueryParams', function() {
+    let defaultQueryParams = [this.get('infiniteIncrementBy'), this.get('infiniteIncrementProperty')];
+    let infiniteQueryParams = this.get('infiniteQueryParams');
+    return defaultQueryParams.concat(infiniteQueryParams);
+  }),
+
+  /**
    An array of params that are needed for the infinite query.
 
    @property infiniteQueryParams
    @type { Array }
-   @default ['start', 'limit']
+   @default []
    */
 
-  infiniteQueryParams: ['start', 'limit'],
+  infiniteQueryParams: [],
 
   /**
    Does what's needed for the infinite scroll.
@@ -138,7 +152,7 @@ export default Mixin.create({
    */
 
   infiniteQuery(modelName, params) {
-    if (this.get('infiniteQuerying')) {return;}
+    if (this.get('infiniteQuerying') || !this.get('infiniteScrollAvailable')) {return;}
     this.set('infiniteQuerying', true);
 
     if(modelName) {
@@ -152,9 +166,9 @@ export default Mixin.create({
     }
 
     let infiniteModelName = this.get('infiniteModelName');
-    let infiniteQueryParams = this.get('infiniteQueryParams');
+    let fullQueryParams = this.get('_fullQueryParams');
 
-    params = this.getProperties(infiniteQueryParams);
+    params = this.getProperties(fullQueryParams);
 
     this.beforeInfiniteQuery(params);
     let newRecords = this.infiniteDataQuery(infiniteModelName, params);
@@ -248,6 +262,7 @@ export default Mixin.create({
     let shouldIncrement = this.get(infiniteIncrementBy);
     let hasMoreContent = addedLength >= shouldIncrement;
     this.set('hasMoreContent', hasMoreContent);
+    this.set('infiniteScrollAvailable', hasMoreContent);
   },
 
   actions: {
