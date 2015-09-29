@@ -1,4 +1,4 @@
-# ember-cli-infinite-scroll
+# ember-cli-infinite-scroll [![Master Build Status](https://circleci.com/gh/Vestorly/ember-cli-infinite-scroll.png?style=shield)](https://circleci.com/gh/Vestorly/ember-cli-infinite-scroll/tree/master)
 
 **ember-cli-infinite-scroll** is an ember-cli addon that can be used as a mixin or a component. By default it issues ember data queries using 'start' and 'limit', incrementing each time a query is made.
 
