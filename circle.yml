@@ -1,0 +1,22 @@
+## Customize the test machine
+machine:
+  # Version of node to use
+  node:
+    version: 0.12.0
+
+test:
+  override:
+    - npm test:
+        timeout: 900
+
+## Customize dependencies
+dependencies:
+  cache_directories:
+    - "~/nvm/v0.12.0/lib/node_modules"
+  pre:
+    - npm config set spin false
+    - npm install -g npm@^2
+  override:
+    - npm install
+  post:
+    - bower install
