@@ -6,6 +6,6 @@ const { Route } = Ember;
 
 export default Route.extend(InfiniteScrollRouteMixin, {
   model() {
-    return this.infiniteQuery('post');
+    return this.infiniteQuery('post', {group_ids: '54c0452c8a5f04ef080001c1'});
   }
 });
