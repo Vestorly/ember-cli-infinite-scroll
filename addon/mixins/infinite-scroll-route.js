@@ -13,12 +13,15 @@ const { Mixin, computed, on } = Ember;
 export default Mixin.create(InfiniteScrollMixin, {
 
   /**
-   Sets defaults for `infiniteScrollAvailable` and `hasMoreContent`
+   Sets defaults for `infiniteScrollAvailable`, `hasMoreContent`, and the
+   `infiniteIncrementProperty`
 
    @method beforeModel
    */
 
   beforeModel: function() {
+    let start = this.get('infiniteIncrementProperty');
+    this.set(start, 0);
     this.set('infiniteScrollAvailable', true);
     this.set('hasMoreContent', true);
   },
