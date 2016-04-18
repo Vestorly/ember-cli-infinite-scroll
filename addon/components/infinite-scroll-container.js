@@ -1,17 +1,29 @@
 import Ember from 'ember';
 import InfiniteScrollMixin from 'ember-cli-infinite-scroll/mixins/infinite-scroll';
 
-const { Component } = Ember;
+const {
+  Component,
+  inject: {
+    service
+  }
+} = Ember;
 
 /**
  A component that contains infinite scrolled content.
 
  @class InfiniteScrollContainerComponent
  @uses InfiniteScrollMixin
+ @uses DS.Store
  */
 
 export default Component.extend(InfiniteScrollMixin, {
   classNames: 'infinite-scroll-container',
+
+  /**
+   {{#crossLink "DS.Store"}}{{/crossLink}}
+   */
+
+  store: service(),
 
   /**
    Will be passed into the scroll listener to be the observed element on scroll.
@@ -24,14 +36,12 @@ export default Component.extend(InfiniteScrollMixin, {
   scrollContainer: '.infinite-scroll-container',
 
   /**
-   Gives the component access to the store and starts the infinite query.
+   Starts the infinite query.
 
-   @method didInsertElement
+   @method didReceiveAttrs
    */
 
-  didInsertElement() {
-    let store = this.container.lookup('store:main');
-    this.set('store', store);
+  didReceiveAttrs() {
     this.infiniteQuery();
   },
 

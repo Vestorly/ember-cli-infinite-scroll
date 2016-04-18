@@ -4,5 +4,5 @@ const { RESTAdapter } = DS;
 
 export default RESTAdapter.extend({
   host: 'http://staging.vestorly.com',
-  namespace: 'api/v2/advisors/infinite-scroll'
+  namespace: 'api/v3/reader/publishers/infinite-scroll'
 });

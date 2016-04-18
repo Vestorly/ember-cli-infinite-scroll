@@ -160,7 +160,7 @@ export default Mixin.create({
     }
 
     if(params) {
-      let paramsToSet = Ember.keys(params);
+      let paramsToSet = Object.keys(params);
       this.set('infiniteQueryParams', paramsToSet);
       this.setProperties(params);
     }
@@ -202,7 +202,7 @@ export default Mixin.create({
    */
 
   infiniteDataQuery(modelName, params={}) {
-    return this.store.query(modelName, params);
+    return this.get('store').query(modelName, params);
   },
 
   /**

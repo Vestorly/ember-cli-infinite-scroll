@@ -6,17 +6,6 @@ const { Controller, Route } = Ember;
 
 module('Unit - InfiniteScrollRouteMixin');
 
-test('#coerceControllerAlias', function(assert) {
-  let infiniteScrollRoute = Route.extend(infiniteScrollRouteMixin);
-  let controller = Controller.create();
-  let subject = infiniteScrollRoute.create();
-
-  subject.set('controller', controller);
-
-  subject.coerceControllerAlias('testProperty', true);
-  assert.ok(controller.get('testProperty'), 'controller property was set correctly');
-});
-
 test('#infiniteScrollAvailable', function(assert) {
   let infiniteScrollRoute = Route.extend(infiniteScrollRouteMixin);
   let controller = Controller.create();
