@@ -172,15 +172,15 @@ export default Mixin.create({
 
     this.beforeInfiniteQuery(params);
     let newRecords = this.infiniteDataQuery(infiniteModelName, params);
-    newRecords.then( records => {
+    newRecords.then(records => {
       let returnedContentLength = records.get('length');
 
-      this.afterInfiniteQuery(records);
+      this.afterInfiniteQuery(records.toArray());
       this._updateInfiniteProperties(returnedContentLength);
       this.set('infiniteQuerying', false);
     });
 
-    return newRecords;
+    return newRecords.then(records => records.toArray());
   },
 
   /**
@@ -218,7 +218,7 @@ export default Mixin.create({
     let model = this.get(contentPropertyName);
 
     if (model) {
-      model.addObjects(newRecords.get('content'));
+      model.addObjects(newRecords);
     }
   },
 
