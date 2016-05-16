@@ -5,7 +5,8 @@ const { Mixin, run, computed } = Ember;
 /**
  A mixin for infinite scrolls.
 
- @class InfiniteScrollMixin
+ @class EmberCliInfiniteScroll.Mixin.InfiniteScroll
+ @extends Ember.Mixin
  */
 
 export default Mixin.create({
@@ -263,6 +264,30 @@ export default Mixin.create({
     let hasMoreContent = addedLength >= shouldIncrement;
     this.set('hasMoreContent', hasMoreContent);
     this.set('infiniteScrollAvailable', hasMoreContent);
+  },
+
+  /**
+   Resets
+   {{#crossLink "EmberCliInfiniteScroll.Mixin.InfiniteScroll/hasMoreContent:property"}}{{/crossLink}} and
+   {{#crossLink "EmberCliInfiniteScroll.Mixin.InfiniteScroll/infiniteScrollAvailable:property"}}{{/crossLink}},
+   and the values for
+   {{#crossLink "EmberCliInfiniteScroll.Mixin.InfiniteScroll/infiniteIncrementProperty:property"}}{{/crossLink}} and
+   {{#crossLink "EmberCliInfiniteScroll.Mixin.InfiniteScroll/infiniteContentPropertyName:property"}}{{/crossLink}}
+
+   @method resetInfinite
+   */
+
+  resetInfinite() {
+    let {
+      infiniteIncrementProperty,
+      infiniteContentPropertyName
+    } = this.getProperties('infiniteContentPropertyName', 'infiniteIncrementProperty');
+
+    this.get(infiniteContentPropertyName).clear();
+
+    this.set(infiniteIncrementProperty, 0);
+    this.set('hasMoreContent', true);
+    this.set('infiniteScrollAvailable', true);
   },
 
   actions: {
