@@ -5,15 +5,13 @@ import infiniteScrollMixin from 'ember-cli-infinite-scroll/mixins/infinite-scrol
 const { Component, RSVP } = Ember;
 const { Promise } = RSVP;
 
-const newRecords = Ember.Object.create({
-  content: Ember.A([{
-    title: 'All you need to know',
-    text: "You'll never need to read anything else"
-  }, {
-    title: 'Oh and one more thing',
-    text: 'Read this too'
-  }])
-});
+const newRecords = Ember.A([{
+  title: 'All you need to know',
+  text: "You'll never need to read anything else"
+}, {
+  title: 'Oh and one more thing',
+  text: 'Read this too'
+}]);
 
 const promisedRecords = new Promise(function(resolve){
   return resolve(newRecords);
