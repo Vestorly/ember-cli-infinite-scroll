@@ -1,6 +1,6 @@
 import Ember from 'ember';
 
-const { Mixin, run, computed } = Ember;
+const { Mixin, run, computed, RSVP: { resolve } } = Ember;
 
 /**
  A mixin for infinite scrolls.
@@ -153,7 +153,9 @@ export default Mixin.create({
    */
 
   infiniteQuery(modelName, params) {
-    if (this.get('infiniteQuerying') || !this.get('infiniteScrollAvailable')) {return;}
+    if (this.get('infiniteQuerying') || !this.get('infiniteScrollAvailable')) {
+      return resolve([]);
+    }
     this.set('infiniteQuerying', true);
 
     if(modelName) {
@@ -172,16 +174,19 @@ export default Mixin.create({
     params = this.getProperties(fullQueryParams);
 
     this.beforeInfiniteQuery(params);
-    let newRecords = this.infiniteDataQuery(infiniteModelName, params);
-    newRecords.then(records => {
+    let newRecords = this.infiniteDataQuery(infiniteModelName, params)
+    .then(records => {
       let returnedContentLength = records.get('length');
+      let recordsArray = records.toArray();
 
-      this.afterInfiniteQuery(records.toArray());
+      this.afterInfiniteQuery(recordsArray);
       this._updateInfiniteProperties(returnedContentLength);
       this.set('infiniteQuerying', false);
+
+      return recordsArray;
     });
 
-    return newRecords.then(records => records.toArray());
+    return newRecords;
   },
 
   /**
