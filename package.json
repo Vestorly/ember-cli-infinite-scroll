@@ -1,6 +1,6 @@
 {
   "name": "ember-cli-infinite-scroll",
-  "version": "0.4.2",
+  "version": "0.4.3",
   "description": "An infinite scroll addon for Ember applications.",
   "directories": {
     "doc": "doc",
