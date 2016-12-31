@@ -196,7 +196,7 @@ export default Mixin.create({
    @param params { Object } the params that will be used in the query
    */
 
-  beforeInfiniteQuery: Ember.K,
+  beforeInfiniteQuery() {},
 
   /**
    The query that will be used.
