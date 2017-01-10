@@ -10,6 +10,7 @@ Advanced features include dynamically calculating query params, pre- and post-qu
 ### Installation
 ---
 
+* Since this addon uses `ember-ic-you`, make sure you have it properly installed: [https://github.com/Vestorly/ember-ic-you](https://github.com/Vestorly/ember-ic-you)
 * Install addon `ember install ember-cli-infinite-scroll`
 
 ### As a component
