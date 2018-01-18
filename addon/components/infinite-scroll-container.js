@@ -1,12 +1,7 @@
 import Ember from 'ember';
 import InfiniteScrollMixin from 'ember-cli-infinite-scroll/mixins/infinite-scroll';
 
-const {
-  Component,
-  inject: {
-    service
-  }
-} = Ember;
+const { Component, inject: { service } } = Ember;
 
 /**
  A component that contains infinite scrolled content.

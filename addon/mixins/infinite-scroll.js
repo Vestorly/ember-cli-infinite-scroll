@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import { safeSet, safeSetProperties, safeIncrementProperty } from '../utils/object';
 
 const { Mixin, run, computed, RSVP: { resolve } } = Ember;
 
@@ -181,7 +182,7 @@ export default Mixin.create({
 
       this.afterInfiniteQuery(recordsArray);
       this._updateInfiniteProperties(returnedContentLength);
-      this.set('infiniteQuerying', false);
+      safeSet(this, 'infiniteQuerying', false);
 
       return recordsArray;
     });
@@ -253,7 +254,7 @@ export default Mixin.create({
   _updateInfiniteCount(addedLength) {
     let incrementProperty = this.get('infiniteIncrementProperty');
 
-    this.incrementProperty(incrementProperty, addedLength);
+    safeIncrementProperty(incrementProperty, addedLength);
   },
 
   /**
@@ -267,8 +268,10 @@ export default Mixin.create({
     let infiniteIncrementBy = this.get('infiniteIncrementBy');
     let shouldIncrement = this.get(infiniteIncrementBy);
     let hasMoreContent = addedLength >= shouldIncrement;
-    this.set('hasMoreContent', hasMoreContent);
-    this.set('infiniteScrollAvailable', hasMoreContent);
+    safeSetProperties(this, {
+      hasMoreContent,
+      infirinteScrollAvailable: hasMoreContent
+    });
   },
 
   /**
@@ -290,9 +293,12 @@ export default Mixin.create({
 
     this.get(infiniteContentPropertyName).clear();
 
-    this.set(infiniteIncrementProperty, 0);
-    this.set('hasMoreContent', true);
-    this.set('infiniteScrollAvailable', true);
+    let props = {
+      hasMoreContent: true,
+      infiniteScrollAvailable: true
+    };
+    props[infiniteIncrementProperty] = 0;
+    safeSetProperties(this, props);
   },
 
   actions: {
