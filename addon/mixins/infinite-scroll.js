@@ -158,16 +158,16 @@ export default Mixin.create({
     if (this.get('infiniteQuerying') || !this.get('infiniteScrollAvailable')) {
       return resolve([]);
     }
-    this.set('infiniteQuerying', true);
+    safeSet(this, 'infiniteQuerying', true);
 
     if(modelName) {
-      this.set('infiniteModelName', modelName);
+      safeSet(this, 'infiniteModelName', modelName);
     }
 
     if(params) {
       let paramsToSet = Object.keys(params);
-      this.set('infiniteQueryParams', paramsToSet);
-      this.setProperties(params);
+      safeSet(this, 'infiniteQueryParams', paramsToSet);
+      safeSetProperties(this, params);
     }
 
     let infiniteModelName = this.get('infiniteModelName');
@@ -241,7 +241,7 @@ export default Mixin.create({
   _updateInfiniteProperties(addedLength) {
     this._updateInfiniteCount(addedLength);
     this.updateHasMoreContent(addedLength);
-    this.incrementProperty('_cycleCount');
+    safeIncrementProperty(this, '_cycleCount');
   },
 
   /**
