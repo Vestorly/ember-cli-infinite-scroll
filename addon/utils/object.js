@@ -1,6 +1,6 @@
 import Ember from 'ember';
 
-const { set, setProperties, typeOf } = Ember;
+const { get, set, setProperties, typeOf } = Ember;
 
 function isSafe(obj) {
   let type = typeOf(obj);
