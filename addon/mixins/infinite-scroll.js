@@ -254,7 +254,7 @@ export default Mixin.create({
   _updateInfiniteCount(addedLength) {
     let incrementProperty = this.get('infiniteIncrementProperty');
 
-    safeIncrementProperty(incrementProperty, addedLength);
+    safeIncrementProperty(this, incrementProperty, addedLength);
   },
 
   /**

@@ -1,8 +1,9 @@
 import Ember from 'ember';
-import { module, test } from 'qunit';
+import { moduleForComponent, test } from 'ember-qunit';
 import infiniteScrollMixin from 'ember-cli-infinite-scroll/mixins/infinite-scroll';
+import hbs from 'htmlbars-inline-precompile';
 
-const { Component, RSVP } = Ember;
+const { Component, RSVP, getOwner } = Ember;
 const { Promise } = RSVP;
 
 const newRecords = Ember.A([{
@@ -17,11 +18,23 @@ const promisedRecords = new Promise(function(resolve){
   return resolve(newRecords);
 });
 
-module('Unit - InfiniteScrollMixin');
+moduleForComponent('Unit - InfiniteScrollMixin', {
+  integration: true,
+  beforeEach() {
+    let self = this;
+    let InfiniteScrollComponent = Component.extend(infiniteScrollMixin, {
+      init() {
+        this._super(...arguments);
+        self.componentInstance = this;
+      }
+    });
+    this.register('component:infinite-scroll', InfiniteScrollComponent);
+    this.render(hbs`{{infinite-scroll}}`);
+  }
+});
 
 test('#afterInfiniteQuery', function(assert) {
-  let infiniteScrollComponent = Component.extend(infiniteScrollMixin);
-  let subject = infiniteScrollComponent.create();
+  let subject = this.componentInstance;
 
   subject.set('model', Ember.A());
 
@@ -30,16 +43,14 @@ test('#afterInfiniteQuery', function(assert) {
 });
 
 test('#_updateInfiniteProperties', function(assert) {
-  let infiniteScrollComponent = Component.extend(infiniteScrollMixin);
-  let subject = infiniteScrollComponent.create();
+  let subject = this.componentInstance;
 
   subject._updateInfiniteProperties(12);
   assert.equal(subject.get('_cycleCount'), 1, 'cycleCount was correctly set');
 });
 
 test('#_updateInfiniteCount', function(assert) {
-  let infiniteScrollComponent = Component.extend(infiniteScrollMixin);
-  let subject = infiniteScrollComponent.create();
+  let subject = this.componentInstance;
   subject.set('infiniteIncrementProperty', 'testStart');
 
   subject._updateInfiniteCount(12);
@@ -47,8 +58,7 @@ test('#_updateInfiniteCount', function(assert) {
 });
 
 test('#updateHasMoreContent', function(assert) {
-  let infiniteScrollComponent = Component.extend(infiniteScrollMixin);
-  let subject = infiniteScrollComponent.create();
+  let subject = this.componentInstance;
   subject.set('limit', 10);
 
   subject.updateHasMoreContent(10);
@@ -61,8 +71,7 @@ test('#updateHasMoreContent', function(assert) {
 });
 
 test('#infiniteQuery', function(assert) {
-  let infiniteScrollComponent = Component.extend(infiniteScrollMixin);
-  let subject = infiniteScrollComponent.create();
+  let subject = this.componentInstance;
 
   subject.infiniteDataQuery = function() {
     return promisedRecords;
@@ -70,8 +79,6 @@ test('#infiniteQuery', function(assert) {
 
   subject.set('infiniteQueryParams', ['start', 'limit', 'test']);
   subject.infiniteQuery('post', {test: true});
-
-  let infiniteModelName = subject.get('infiniteModelName');
 
   assert.equal(subject.get('infiniteModelName'), 'post', 'model name properly set');
   assert.ok(subject.get('test'), 'test param properly set');
