@@ -1,6 +1,5 @@
-import Ember from 'ember';
-
-const { get, set, setProperties, typeOf } = Ember;
+import { get, set, setProperties } from '@ember/object';
+import { typeOf } from '@ember/utils';
 
 function isSafe(obj) {
   let type = typeOf(obj);

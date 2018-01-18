@@ -1,7 +1,8 @@
-import Ember from 'ember';
+import Mixin from '@ember/object/mixin';
+import { run } from '@ember/runloop';
+import { computed } from '@ember/object';
+import { resolve } from 'rsvp';
 import { safeSet, safeSetProperties, safeIncrementProperty } from '../utils/object';
-
-const { Mixin, run, computed, RSVP: { resolve } } = Ember;
 
 /**
  A mixin for infinite scrolls.

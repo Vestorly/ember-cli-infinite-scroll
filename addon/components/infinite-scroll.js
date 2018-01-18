@@ -1,6 +1,6 @@
-import Ember from 'ember';
+/* eslint ember/closure-actions: 'warn' */
 
-const { Component } = Ember;
+import Component from '@ember/component';
 
 /**
  A component to trigger infinite scroll.

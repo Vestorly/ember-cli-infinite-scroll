@@ -1,7 +1,10 @@
-import Ember from 'ember';
-
-const { Controller } = Ember;
+import Controller from '@ember/controller';
 
 export default Controller.extend({
-  sidebarParams: ['group_ids']
+  sidebarParams: null,
+
+  init() {
+    this._super(...arguments);
+    this.set('sidebarParams', ['group_ids']);
+  }
 });

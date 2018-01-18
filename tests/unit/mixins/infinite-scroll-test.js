@@ -1,12 +1,13 @@
-import Ember from 'ember';
+import Component from '@ember/component';
+import { A } from '@ember/array';
+import RSVP from 'rsvp';
 import { moduleForComponent, test } from 'ember-qunit';
 import infiniteScrollMixin from 'ember-cli-infinite-scroll/mixins/infinite-scroll';
 import hbs from 'htmlbars-inline-precompile';
 
-const { Component, RSVP, getOwner } = Ember;
 const { Promise } = RSVP;
 
-const newRecords = Ember.A([{
+const newRecords = A([{
   title: 'All you need to know',
   text: "You'll never need to read anything else"
 }, {
@@ -36,7 +37,7 @@ moduleForComponent('Unit - InfiniteScrollMixin', {
 test('#afterInfiniteQuery', function(assert) {
   let subject = this.componentInstance;
 
-  subject.set('model', Ember.A());
+  subject.set('model', A());
 
   subject.afterInfiniteQuery(newRecords);
   assert.equal(subject.get('model.length'), 2, 'new records were correctly added');
