@@ -52,11 +52,12 @@ acorn@^5.2.1:
   version "5.3.0"
   resolved "https://registry.yarnpkg.com/acorn/-/acorn-5.3.0.tgz#7446d39459c54fb49a80e6ee6478149b940ec822"
 
-active-model-adapter@1.13.6:
-  version "1.13.6"
-  resolved "https://registry.yarnpkg.com/active-model-adapter/-/active-model-adapter-1.13.6.tgz#2511559cc665dab72e0edc55bb11296c7f0be3ef"
+active-model-adapter@^2.2.0:
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/active-model-adapter/-/active-model-adapter-2.2.0.tgz#6885d6968574809f17f398c499b688a921c30f91"
   dependencies:
-    ember-cli-babel "^5.0.0"
+    ember-cli-babel "^6.8.2"
+    ember-inflector "^2.0.0"
 
 after@0.8.1:
   version "0.8.1"
@@ -2496,9 +2497,9 @@ ember-export-application-global@^2.0.0:
   dependencies:
     ember-cli-babel "^6.0.0-beta.7"
 
-ember-ic-you@0.1.2:
-  version "0.1.2"
-  resolved "https://registry.yarnpkg.com/ember-ic-you/-/ember-ic-you-0.1.2.tgz#9c72044ff0a5afb474400584806da1b3a8c53792"
+ember-ic-you@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/ember-ic-you/-/ember-ic-you-1.0.0.tgz#5e04997268431c513dc7ac6034bdac5b4d6e4d83"
   dependencies:
     ember-cli-babel "^5.0.0"
 
