@@ -49,11 +49,15 @@ export default Component.extend(InfiniteScrollMixin, {
    */
 
   afterInfiniteQuery(newRecords) {
+    let content = newRecords && newRecords.get('content');
+    if (!content) {
+      content = newRecords;
+    }
     let infiniteContentPropertyName = this.get('infiniteContentPropertyName');
     let model = this.get(infiniteContentPropertyName);
 
     if (model) {
-      model.addObjects(newRecords.get('content'));
+      model.addObjects(content);
     } else {
       this.set(infiniteContentPropertyName, newRecords);
     }
