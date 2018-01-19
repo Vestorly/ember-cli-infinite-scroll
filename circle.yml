@@ -2,7 +2,7 @@
 machine:
   # Version of node to use
   node:
-    version: 0.12.0
+    version: 8.9.1
 
 test:
   override:
@@ -12,11 +12,8 @@ test:
 ## Customize dependencies
 dependencies:
   cache_directories:
-    - "~/nvm/v0.12.0/lib/node_modules"
+    - "~/.cache/yarn"
   pre:
-    - npm config set spin false
-    - npm install -g npm@^2
+    - npm install -g yarn
   override:
-    - npm install
-  post:
-    - bower install
+    - yarn

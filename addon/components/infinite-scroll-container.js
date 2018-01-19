@@ -1,12 +1,6 @@
-import Ember from 'ember';
+import Component from '@ember/component';
+import { inject as service } from '@ember/service';
 import InfiniteScrollMixin from 'ember-cli-infinite-scroll/mixins/infinite-scroll';
-
-const {
-  Component,
-  inject: {
-    service
-  }
-} = Ember;
 
 /**
  A component that contains infinite scrolled content.
@@ -54,11 +48,15 @@ export default Component.extend(InfiniteScrollMixin, {
    */
 
   afterInfiniteQuery(newRecords) {
+    let content = newRecords && newRecords.get('content');
+    if (!content) {
+      content = newRecords;
+    }
     let infiniteContentPropertyName = this.get('infiniteContentPropertyName');
     let model = this.get(infiniteContentPropertyName);
 
     if (model) {
-      model.addObjects(newRecords.get('content'));
+      model.addObjects(content);
     } else {
       this.set(infiniteContentPropertyName, newRecords);
     }

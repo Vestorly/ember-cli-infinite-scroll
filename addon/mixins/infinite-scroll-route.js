@@ -1,7 +1,7 @@
-import Ember from 'ember';
+import Mixin from '@ember/object/mixin';
+import { computed } from '@ember/object';
+import { on } from '@ember/object/evented';
 import InfiniteScrollMixin from 'ember-cli-infinite-scroll/mixins/infinite-scroll';
-
-const { Mixin, computed, on } = Ember;
 
 /**
  Delegates a given property to the related controller (or specified controller

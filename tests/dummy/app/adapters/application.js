@@ -1,8 +1,6 @@
-import DS from 'ember-data';
+import { ActiveModelAdapter } from 'active-model-adapter';
 
-const { RESTAdapter } = DS;
-
-export default RESTAdapter.extend({
+export default ActiveModelAdapter.extend({
   host: 'http://staging.vestorly.com',
   namespace: 'api/v3/reader/publishers/infinite-scroll'
 });
