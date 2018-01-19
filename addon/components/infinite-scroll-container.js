@@ -1,6 +1,7 @@
 import Component from '@ember/component';
 import { inject as service } from '@ember/service';
 import InfiniteScrollMixin from 'ember-cli-infinite-scroll/mixins/infinite-scroll';
+import { safeSet } from '../utils/object';
 
 /**
  A component that contains infinite scrolled content.
@@ -58,7 +59,7 @@ export default Component.extend(InfiniteScrollMixin, {
     if (model) {
       model.addObjects(content);
     } else {
-      this.set(infiniteContentPropertyName, newRecords);
+      safeSet(this, infiniteContentPropertyName, newRecords);
     }
   }
 });
