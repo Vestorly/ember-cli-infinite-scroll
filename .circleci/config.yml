@@ -17,13 +17,13 @@ jobs:
             - .git
       - restore_cache:
           keys:
-            - dep-cache-{{ .Branch }}-{{ checksum "package-lock.json" }}
+            - dep-cache-{{ .Branch }}-{{ checksum "yarn.lock" }}
             - dep-cache-{{ .Branch }}
       - run: echo 'export PATH=node_modules/.bin:$PATH' >> $BASH_ENV
       - run: npm install yarn
       - run: yarn
       - save_cache:
-          key: dep-cache-{{ .Branch }}-{{ checksum "package-lock.json" }}
+          key: dep-cache-{{ .Branch }}-{{ checksum "yarn.lock" }}
           paths:
             - node_modules
       - persist_to_workspace:
