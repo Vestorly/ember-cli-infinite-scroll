@@ -180,6 +180,7 @@ export default Mixin.create({
     .then(records => {
       let returnedContentLength = records.get('length');
       let recordsArray = records.toArray();
+      recordsArray.set('meta', records.get('meta'));
 
       this.afterInfiniteQuery(recordsArray);
       this._updateInfiniteProperties(returnedContentLength);
